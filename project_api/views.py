@@ -6,7 +6,8 @@ from project_api import serializers
 from project_api.models import User
 from project_api.serializers import UserSerializer
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,permission_classes
+from rest_framework.permissions import  IsAuthenticated
 from rest_framework.response import Response
 from django.contrib.auth.hashers import make_password,check_password
 from django.contrib.auth import authenticate, login, logout
@@ -104,6 +105,7 @@ def delete_all_students(request):
 
 # single students
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def getting_single_students(request, id):
     user = User.objects.get(pk=id)
     serializer = UserSerializer(user, many=False)
