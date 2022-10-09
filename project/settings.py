@@ -151,28 +151,28 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'NAME': 'smp_db',
-#         'ENFORCE_SCHEMA': False,
-#         'CLIENT': {
-#             'host': config('MONGO_HOST')
-
-#         }
-
-#     }
-# } 
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'testing_local',
-       
+        'NAME': 'smp_db',
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+            'host': config('MONGO_HOST')
+
+        }
 
     }
-}
+} 
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'testing_local',
+       
+
+#     }
+# }
 
 
 
