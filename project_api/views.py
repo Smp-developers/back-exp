@@ -16,25 +16,25 @@ from django.conf import settings
 from django.core.mail import send_mail
 
 
-# from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-# from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
-# class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-#     @classmethod
-#     def get_token(cls, user):
-#         token = super().get_token(user)
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
 
-#         # Add custom claims
-#         token['email'] = user.email
-#         token['role'] = user.role
-#         token['password'] = user.password
+        # Add custom claims
+        token['email'] = user.email
+        token['role'] = user.role
+        token['password'] = user.password
         
-#         # ...
+        # ...
 
-#         return token
+        return token
 
-# class MyTokenObtainPairView(TokenObtainPairView):
-#     serializer_class = MyTokenObtainPairSerializer
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 # Create your views here.
 
