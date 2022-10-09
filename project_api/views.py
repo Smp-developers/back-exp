@@ -15,6 +15,27 @@ import cloudinary
 from django.conf import settings
 from django.core.mail import send_mail
 
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Add custom claims
+        token['email'] = user.email
+        token['role'] = user.role
+        token['password'] = user.password
+        
+        # ...
+
+        return token
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
 # Create your views here.
 
 @api_view(['POST'])
@@ -59,7 +80,7 @@ def signup(request):
             social_media=data['social_media']
         )
         serializer = UserSerializer(user, many=False)
-        return Response(serializer.data)
+        return Response("registered success")
 
 
 @api_view(['GET'])
