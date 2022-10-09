@@ -161,7 +161,7 @@ DATABASES = {
         }
 
     }
-}
+} 
 
 
 # DATABASES = {
