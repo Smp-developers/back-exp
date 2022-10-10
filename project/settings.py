@@ -125,7 +125,7 @@ WHITENOISE_USE_FINDERS = True
 ROOT_URLCONF = 'project.urls'
 
 CORS_ORIGIN_WHITELIST = [
-    'https://smp-developer.vercel.app',
+    'https://smp-developer.vercel.app', 
     
     'http://localhost:3000'
 ]
