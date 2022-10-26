@@ -46,7 +46,7 @@ urlpatterns = [
 
 
     path('delete_admin_mail/<str:email>', views.delete_admin_mail),
-    path('check_original_password', views.check_original_password),
+    path('check_original_password/<str:email>', views.check_original_password),
 
 
 

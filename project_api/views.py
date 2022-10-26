@@ -28,7 +28,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # Add custom claims
         token['email'] = user.email
         token['role'] = user.role
-        token['password'] = user.password
+        
         
         # ...
 
@@ -293,9 +293,10 @@ def edit_student_profile(request, email):
     
 
 @api_view(['POST'])
-def check_original_password(request):
+def check_original_password(request,email):
+    user = User.objects.get(email__icontains=email)
     ps=request.data['password']
-    enps=request.data['enc_password']
+    enps=user.password
     if(check_password(ps, enps)==True):
         return Response("success")
     else:
