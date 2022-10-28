@@ -28,6 +28,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # Add custom claims
         token['email'] = user.email
         token['role'] = user.role
+        token['password'] = user.password
         
         
         # ...
@@ -275,7 +276,6 @@ def edit_student_profile(request, email):
     data=request.data
     email=request.data['email']
     user = User.objects.get(email=email)
-    
     if(request.FILES.get('image')!=None):
         cloudinary.uploader.destroy(user.image.public_id, invalidate=True)
         user.image = request.FILES.get('image')
@@ -327,3 +327,15 @@ def batch_request_update(request,id):
     user.save()
     serializer=UserSerializer(user,many=False)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def check_login_password(request,email):
+    user = User.objects.get(email__icontains=email)
+    enc_pass = request.data['enc_pass']
+    if(str(user.password) == str(enc_pass)):
+        return Response('Matched')
+    else:
+        return Response('Miss-matched')
+        
+    
