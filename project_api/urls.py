@@ -62,5 +62,8 @@ urlpatterns = [
     path('batch_request_update/<int:id>', views.batch_request_update),
     
     
+        path('update_all_total', views.update_all_total),
+    
+    
 path('sending_newStudents_mail', views.sending_newStudents_mail)
 ]

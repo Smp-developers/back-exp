@@ -76,7 +76,7 @@ def signup(request):
             meeting_url='',
             role='student',
             password=make_password(data['password']),
-            Total='10000',
+            Total='12000',
             referals='0',
             batch_request="not",
             social_media=data['social_media']
@@ -113,6 +113,18 @@ def getting_single_students(request, id):
     return Response(serializer.data)
 
 # update payment
+
+
+@api_view(['POST'])
+
+def update_all_total(request):
+    user = User.objects.filter(role__icontains="student")
+   
+    for i in user:
+        i.Total = request.data['payment']
+        i.save()
+    serializer = UserSerializer(user, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['POST'])
@@ -202,9 +214,10 @@ def update_single_referals(request, id):
     user.referals = request.data['referals']
     cost = request.data['referals']
     if(int(cost) != 0):
-        user.Total = int(user.Total)-int(cost)*500
-    else:
+        # user.Total = int(user.Total)-int(cost)*500
         user.Total = '10000'
+    else:
+        user.Total = '12000'
     user.save()
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
